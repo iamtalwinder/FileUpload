@@ -16,13 +16,12 @@ function App() {
 			const response = await axios.post("/upload", data, {});
 			alert(response.data);
 		} catch (err) {
-			console.log(err);
-			alert("Error");
+			alert(err.response.data);
 		}
 	};
 	return (
 		<Fragment>
-			<input type="file" onChange={handleFileChange} />
+			<input type="file" name="file" onChange={handleFileChange} />
 			<button onClick={upload}>upload</button>
 		</Fragment>
 	);
