@@ -30,7 +30,7 @@ const upload = multer({
 			cb({ message: "jpeg or jpg or png or gif only" });
 		}
 	},
-}).single("file");
+}).array("file");
 
 const app = express();
 
@@ -38,7 +38,7 @@ app.post("/upload", (req, res) => {
 	upload(req, res, (err) => {
 		if (err) {
 			res.status(500).send(err.message);
-		} else if (req.file === undefined) {
+		} else if (req.files === undefined) {
 			res.status(500).send("Select a file");
 		} else {
 			res.status(200).send("uploaded");

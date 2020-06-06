@@ -2,15 +2,15 @@ import React, { Fragment, useState } from "react";
 import axios from "axios";
 
 function App() {
-	const [file, setFile] = useState();
+	const [files, setFiles] = useState();
 
 	const handleFileChange = (event) => {
-		setFile(event.target.files[0]);
+		setFiles(event.target.files);
 	};
 
 	const upload = async () => {
 		const data = new FormData();
-		data.append("file", file);
+		for (let file of files) data.append("file", file);
 
 		try {
 			const response = await axios.post("/upload", data, {});
@@ -21,7 +21,7 @@ function App() {
 	};
 	return (
 		<Fragment>
-			<input type="file" name="file" onChange={handleFileChange} />
+			<input type="file" name="file" multiple onChange={handleFileChange} />
 			<button onClick={upload}>upload</button>
 		</Fragment>
 	);
